@@ -29,8 +29,26 @@ public class LoginRegistrationPage extends BasePage{
     @FindBy(xpath = "//div[@class='sc-jlIlqL CnIuH']/div[3]/input")
     WebElement password;
 
+    @FindBy(xpath = "//input[@type='password']")
+    WebElement passwordLogin;
+
     @FindBy(xpath = "//div[@class='sc-jlIlqL CnIuH']/div[4]/input")
     WebElement confirmPassword;
+
+    @FindBy(xpath = "//div[@class='sc-fxNMLY bXYHzn']")
+    WebElement buttonForgotPassword;
+
+    @FindBy(xpath = "//div[text()='Email not valid']")
+    WebElement errorMessage_WrongEmail;
+
+    @FindBy(xpath = "//div[@class='sc-hYAvtR exMbkk']")
+    WebElement errorMessage_PasNotMatch;
+
+    @FindBy(xpath = "//div[@class='sc-hYAvtR exMbkk']")
+    WebElement errorMessage_UserExist;
+
+    @FindBy(xpath = "//div[@class='sc-dkaWRx ikqQip']")
+    WebElement text_PasswordMustHave;
     public LoginRegistrationPage(WebDriver driver) {
         super(driver);
     }
@@ -61,5 +79,37 @@ public class LoginRegistrationPage extends BasePage{
     public HomePage clickButtonSubmit() {
         buttonSubmit.click();
         return new HomePage(driver);
+    }
+
+    public LoginRegistrationPage clickButtonSubmitNegative() {
+        buttonSubmit.click();
+        return this;
+    }
+
+    public boolean isErrorMessagePresent_EmailNotValid() {
+        return isTextInElementPresent(errorMessage_WrongEmail, "Email not valid", 3);
+    }
+
+    public boolean isErrorMessagePresent_PasswordsNotMatch() {
+        return isTextInElementPresent(errorMessage_PasNotMatch, "Passwords not match", 3);
+    }
+
+    public boolean isPresentText_PasswordMustHave() {
+        pause(5);
+        return isTextInElementPresent(text_PasswordMustHave, "Password must have", 3);
+    }
+
+    public boolean isErrorMessagePresent_UserAlreadyExist() {
+        return isTextInElementPresent(errorMessage_UserExist, "User with this email already exists",3);
+    }
+
+    public LoginRegistrationPage fillLoginForm(UserModel user) {
+        type(email, user.getEmail());
+        type(passwordLogin, user.getPassword());
+        return this;
+    }
+
+    public boolean isPresentText_ForgotPassword() {
+        return isTextInElementPresent(buttonForgotPassword, "Forgot password?", 1);
     }
 }

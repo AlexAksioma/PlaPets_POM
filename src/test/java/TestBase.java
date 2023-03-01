@@ -13,7 +13,7 @@ public class TestBase {
     public void init(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
         driver.get("https://propetscom.herokuapp.com/");
     }
 

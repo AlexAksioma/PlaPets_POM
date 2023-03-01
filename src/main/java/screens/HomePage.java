@@ -1,6 +1,8 @@
 package screens;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends BasePage{
 
@@ -13,4 +15,10 @@ public class HomePage extends BasePage{
         return new StartPage(driver);
     }
 
+    @FindBy(xpath = "//div[@class='sc-fvhFOF eMfMFQ']")
+    WebElement buttonLogout;
+
+    public boolean isTextElementPresent_Logout() {
+        return isTextInElementPresent(buttonLogout, "Logout", 3);
+    }
 }
